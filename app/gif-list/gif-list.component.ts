@@ -23,9 +23,7 @@ import 'rxjs/add/operator/map';
 export class GifListComponent {
 	public pageTitle: string = "Gif viewer";
 	private searchValue: string = "";
-	gifs: any[] = [
-		'gif', 'gif', 'gif', 'gif', 'gif'
-	];
+	gifs: any[];
 
 	constructor(private http: Http) { 
 
@@ -33,11 +31,20 @@ export class GifListComponent {
 
 	search(value: any) {
 		this.searchValue = value.target.value;
-		console.log(this.searchValue);
-		this.getGifs()
+		this.getGifs(10);
 	}
 
-	getGifs() {
-		console.log(this.http);
+	getGifs(limit: number) {
+		const endpoint = 'http://api.giphy.com/v1/gifs/search?q=' + this.searchValue + '&limit=' + limit + '&api_key=dc6zaTOxFJmzC';
+
+		this.http.get(endpoint).subscribe((response: Response) => {
+			const resp = response.json();
+
+			console.log('odpowiedź: ', response, response.json(), response.json().data);
+
+			this.gifs = resp.data;
+
+			console.log(this.gifs);
+		})
 	}
 }

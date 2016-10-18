@@ -16,17 +16,20 @@ var GifListComponent = (function () {
         this.http = http;
         this.pageTitle = "Gif viewer";
         this.searchValue = "";
-        this.gifs = [
-            'gif', 'gif', 'gif', 'gif', 'gif'
-        ];
     }
     GifListComponent.prototype.search = function (value) {
         this.searchValue = value.target.value;
-        console.log(this.searchValue);
-        this.getGifs();
+        this.getGifs(10);
     };
-    GifListComponent.prototype.getGifs = function () {
-        console.log(this.http);
+    GifListComponent.prototype.getGifs = function (limit) {
+        var _this = this;
+        var endpoint = 'http://api.giphy.com/v1/gifs/search?q=' + this.searchValue + '&limit=' + limit + '&api_key=dc6zaTOxFJmzC';
+        this.http.get(endpoint).subscribe(function (response) {
+            var resp = response.json();
+            console.log('odpowiedź: ', response, response.json(), response.json().data);
+            _this.gifs = resp.data;
+            console.log(_this.gifs);
+        });
     };
     GifListComponent = __decorate([
         core_1.Component({
