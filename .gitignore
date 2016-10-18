@@ -1,4 +1,5 @@
 node_modules
 typings
-app/*.js
-app/*.js.map
+app/gif-list/*.js
+app/**/*.js
+app/**/*.js.map

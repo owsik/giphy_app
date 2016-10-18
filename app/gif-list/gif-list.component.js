@@ -9,9 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 var GifListComponent = (function () {
-    function GifListComponent() {
+    function GifListComponent(http) {
+        this.http = http;
         this.pageTitle = "Gif viewer";
         this.searchValue = "";
         this.gifs = [
@@ -21,13 +23,17 @@ var GifListComponent = (function () {
     GifListComponent.prototype.search = function (value) {
         this.searchValue = value.target.value;
         console.log(this.searchValue);
+        this.getGifs();
+    };
+    GifListComponent.prototype.getGifs = function () {
+        console.log(this.http);
     };
     GifListComponent = __decorate([
         core_1.Component({
             selector: 'gif-app',
             template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t\t<h2>{{gif}}</h2>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], GifListComponent);
     return GifListComponent;
 }());

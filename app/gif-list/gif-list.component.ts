@@ -27,8 +27,17 @@ export class GifListComponent {
 		'gif', 'gif', 'gif', 'gif', 'gif'
 	];
 
+	constructor(private http: Http) { 
+
+	}
+
 	search(value: any) {
 		this.searchValue = value.target.value;
 		console.log(this.searchValue);
+		this.getGifs()
+	}
+
+	getGifs() {
+		console.log(this.http);
 	}
 }
