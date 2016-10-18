@@ -26,15 +26,15 @@ var GifListComponent = (function () {
         var endpoint = 'http://api.giphy.com/v1/gifs/search?q=' + this.searchValue + '&limit=' + limit + '&api_key=dc6zaTOxFJmzC';
         this.http.get(endpoint).subscribe(function (response) {
             var resp = response.json();
-            console.log('odpowiedź: ', response, response.json(), response.json().data);
+            //console.log('odpowiedź: ', response, response.json(), response.json().data);
             _this.gifs = resp.data;
-            console.log(_this.gifs);
+            //console.log('this.gifs', this.gifs);
         });
     };
     GifListComponent = __decorate([
         core_1.Component({
             selector: 'gif-app',
-            template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t\t<h2>{{gif}}</h2>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
+            template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t\t<img src=\"{{gif.images.downsized.url}}\" alt=\"gif\" />\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], GifListComponent);

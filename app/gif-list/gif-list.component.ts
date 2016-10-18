@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 		<div class="results">
 			<ul>
 				<li *ngFor="let gif of gifs">
-						<h2>{{gif}}</h2>
+						<img src="{{gif.images.downsized.url}}" alt="gif" />
 				</li>
 			</ul>
 		</div>
@@ -40,11 +40,11 @@ export class GifListComponent {
 		this.http.get(endpoint).subscribe((response: Response) => {
 			const resp = response.json();
 
-			console.log('odpowiedź: ', response, response.json(), response.json().data);
+			//console.log('odpowiedź: ', response, response.json(), response.json().data);
 
 			this.gifs = resp.data;
 
-			console.log(this.gifs);
+			//console.log('this.gifs', this.gifs);
 		})
 	}
 }
