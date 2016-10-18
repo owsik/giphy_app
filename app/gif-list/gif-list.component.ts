@@ -13,7 +13,7 @@ import 'rxjs/add/operator/map';
 		<div class="results">
 			<ul>
 				<li *ngFor="let gif of gifs">
-						<img src="{{gif.images.downsized.url}}" alt="gif" />
+					<gif-component [inputGif]="gif"></gif-component>
 				</li>
 			</ul>
 		</div>

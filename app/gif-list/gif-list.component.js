@@ -34,7 +34,7 @@ var GifListComponent = (function () {
     GifListComponent = __decorate([
         core_1.Component({
             selector: 'gif-app',
-            template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t\t<img src=\"{{gif.images.downsized.url}}\" alt=\"gif\" />\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
+            template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t<gif-component [inputGif]=\"gif\"></gif-component>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], GifListComponent);
