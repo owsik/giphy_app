@@ -23,3 +23,6 @@ body {
 .glyphicon.downvote {
 	color: red
 }
+.results {
+  text-align: center;
+}

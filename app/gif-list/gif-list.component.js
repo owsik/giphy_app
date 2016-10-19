@@ -14,7 +14,7 @@ require('rxjs/add/operator/map');
 var GifListComponent = (function () {
     function GifListComponent(http) {
         this.http = http;
-        this.pageTitle = "Gif viewer";
+        this.pageTitle = "Gif Viewer";
         this.searchValue = "";
     }
     GifListComponent.prototype.search = function (value) {
@@ -28,13 +28,14 @@ var GifListComponent = (function () {
             var resp = response.json();
             //console.log('odpowiedź: ', response, response.json(), response.json().data);
             _this.gifs = resp.data;
+            _this.gifLength = _this.gifs.length;
             //console.log('this.gifs', this.gifs);
         });
     };
     GifListComponent = __decorate([
         core_1.Component({
             selector: 'gif-app',
-            template: "\n\t<section>\n\t\t<h1>{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul>\n\t\t\t\t<li *ngFor=\"let gif of gifs\">\n\t\t\t\t\t<gif-component [inputGif]=\"gif\"></gif-component>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\n\t</section>\n  "
+            template: "\n\t<section class=\"container\">\n\t\t<h1 class=\"text-center\">{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" class=\"form-control\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\" *ngFor=\"let gif of gifs\">\n\t\t\t\t\t<gif-component [inputGif]=\"gif\"></gif-component>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"no-results\" *ngIf=\"gifLength < 1\">\n\t\t\t<p class=\"text-center\">Brak wynik\u00F3w</p>\n\t\t</div>\n\t\t</div>\n\t</section>\n  "
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], GifListComponent);

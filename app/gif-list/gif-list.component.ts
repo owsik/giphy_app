@@ -5,24 +5,28 @@ import 'rxjs/add/operator/map';
 @Component({
   selector: 'gif-app',
   template: `
-	<section>
-		<h1>{{pageTitle}}</h1>
+	<section class="container">
+		<h1 class="text-center">{{pageTitle}}</h1>
 		<div class="searchWindow">
-			<input type="text" (keyup)="search($event)"/>
+			<input type="text" class="form-control" (keyup)="search($event)"/>
 		</div>
 		<div class="results">
-			<ul>
-				<li *ngFor="let gif of gifs">
+			<ul class="list-group">
+				<li class="list-group-item" *ngFor="let gif of gifs">
 					<gif-component [inputGif]="gif"></gif-component>
 				</li>
 			</ul>
+			<div class="no-results" *ngIf="gifLength < 1">
+			<p class="text-center">Brak wyników</p>
+		</div>
 		</div>
 	</section>
   `
 })
 export class GifListComponent {
-	public pageTitle: string = "Gif viewer";
+	public pageTitle: string = "Gif Viewer";
 	private searchValue: string = "";
+	gifLength: number;
 	gifs: any[];
 
 	constructor(private http: Http) { 
@@ -41,8 +45,8 @@ export class GifListComponent {
 			const resp = response.json();
 
 			//console.log('odpowiedź: ', response, response.json(), response.json().data);
-
 			this.gifs = resp.data;
+			this.gifLength = this.gifs.length;
 
 			//console.log('this.gifs', this.gifs);
 		})
