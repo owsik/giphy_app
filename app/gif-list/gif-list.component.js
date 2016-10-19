@@ -19,23 +19,29 @@ var GifListComponent = (function () {
     }
     GifListComponent.prototype.search = function (value) {
         this.searchValue = value.target.value;
-        this.getGifs(10);
+        if (this.searchValue.length > 2) {
+            this.getGifs(10);
+        }
     };
     GifListComponent.prototype.getGifs = function (limit) {
         var _this = this;
         var endpoint = 'http://api.giphy.com/v1/gifs/search?q=' + this.searchValue + '&limit=' + limit + '&api_key=dc6zaTOxFJmzC';
         this.http.get(endpoint).subscribe(function (response) {
-            var resp = response.json();
-            //console.log('odpowiedź: ', response, response.json(), response.json().data);
-            _this.gifs = resp.data;
-            _this.gifLength = _this.gifs.length;
-            //console.log('this.gifs', this.gifs);
+            if (response.status >= 200 && response.status < 300) {
+                var resp = response.json();
+                //console.log('odpowiedź: ', response, response.json(), response.json().data);
+                _this.gifs = resp.data;
+                _this.gifLength = _this.gifs.length;
+            }
+            else {
+                alert('Server error');
+            }
         });
     };
     GifListComponent = __decorate([
         core_1.Component({
             selector: 'gif-app',
-            template: "\n\t<section class=\"container\">\n\t\t<h1 class=\"text-center\">{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" class=\"form-control\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\" *ngFor=\"let gif of gifs\">\n\t\t\t\t\t<gif-component [inputGif]=\"gif\"></gif-component>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"no-results\" *ngIf=\"gifLength < 1\">\n\t\t\t<p class=\"text-center\">Brak wynik\u00F3w</p>\n\t\t</div>\n\t\t</div>\n\t</section>\n  "
+            template: "\n\t<section class=\"container\">\n\t\t<h1 class=\"text-center\">{{pageTitle}}</h1>\n\t\t<div class=\"searchWindow\">\n\t\t\t<input type=\"text\" class=\"form-control\" (keyup)=\"search($event)\"/>\n\t\t</div>\n\t\t<div class=\"results\">\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item gif-box\" *ngFor=\"let gif of gifs\">\n\t\t\t\t\t<gif-component [inputGif]=\"gif\"></gif-component>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"no-results\" *ngIf=\"gifLength < 1\">\n\t\t\t\t<h2 class=\"text-center\">No Results found</h2>\n\t\t\t</div>\n\t\t</div>\n\t</section>\n  "
         }), 
         __metadata('design:paramtypes', [http_1.Http])
     ], GifListComponent);

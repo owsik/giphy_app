@@ -12,13 +12,13 @@ import 'rxjs/add/operator/map';
 		</div>
 		<div class="results">
 			<ul class="list-group">
-				<li class="list-group-item" *ngFor="let gif of gifs">
+				<li class="list-group-item gif-box" *ngFor="let gif of gifs">
 					<gif-component [inputGif]="gif"></gif-component>
 				</li>
 			</ul>
 			<div class="no-results" *ngIf="gifLength < 1">
-			<p class="text-center">Brak wyników</p>
-		</div>
+				<h2 class="text-center">No Results found</h2>
+			</div>
 		</div>
 	</section>
   `
@@ -35,20 +35,26 @@ export class GifListComponent {
 
 	search(value: any) {
 		this.searchValue = value.target.value;
-		this.getGifs(10);
+
+		if (this.searchValue.length > 2) {
+			this.getGifs(10);
+		}
 	}
 
 	getGifs(limit: number) {
 		const endpoint = 'http://api.giphy.com/v1/gifs/search?q=' + this.searchValue + '&limit=' + limit + '&api_key=dc6zaTOxFJmzC';
 
 		this.http.get(endpoint).subscribe((response: Response) => {
-			const resp = response.json();
 
-			//console.log('odpowiedź: ', response, response.json(), response.json().data);
-			this.gifs = resp.data;
-			this.gifLength = this.gifs.length;
-
-			//console.log('this.gifs', this.gifs);
+			if (response.status >= 200 && response.status < 300) {
+				const resp = response.json();
+				//console.log('odpowiedź: ', response, response.json(), response.json().data);
+				this.gifs = resp.data;
+				this.gifLength = this.gifs.length;
+				//console.log('here is this.gifs:', this.gifs);
+			} else {
+				alert('Server error');
+			}
 		})
 	}
 }

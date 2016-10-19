@@ -26,3 +26,28 @@ body {
 .results {
   text-align: center;
 }
+
+.gif-box {
+  text-align: center;
+  padding: 10px;
+}
+
+.gif-box img {
+  display: block;
+}
+
+.voting-box, .image-box {
+  display: block;
+  padding-top: 10px
+}
+
+.image-box img {
+  display: inline-block;
+}
+
+.voting-box span {
+  display: inline-block;
+  padding: 10px;
+}
+
+
